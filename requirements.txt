@@ -1,0 +1,10 @@
+requests
+pandas
+numpy
+scikit-learn
+duckdb
+pyarrow
+xorq
+rich
+tqdm
+xorq
