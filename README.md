@@ -9,6 +9,7 @@ A collection of examples and resources for exploring the xorq data framework and
   - `python_udfs/`: Demonstrations of User-Defined Functions in xorq pipelines
   - `ml_pipelines/`: Machine learning pipelines leveraging xorq's deferred execution and Arrow integration
   - `yaml_serialization/`: Examples of serializing and deserializing pipelines for reproducibility
+  - `streaming_sentiment/`: Real-time streaming sentiment analysis using xorq, Kafka, and Hugging Face Transformers
   - `datasets/`: Sample datasets used by the examples
 - `art/`: Medium article and supporting artifacts (coming)
 
@@ -21,6 +22,7 @@ A collection of examples and resources for exploring the xorq data framework and
 5. **Apache Arrow integration** - Leverage Arrow for high-performance data transfer
 6. **Built-in caching** - Automatically cache intermediate results
 7. **ML integration** - Use UDFs across execution engines for ML workflows
+8. **Real-time streaming analytics** - Process streaming data with integration to Apache Kafka
 
 ## Getting Started
 
@@ -35,9 +37,29 @@ python pipelines/main.py multi_engine
 python pipelines/main.py python_udfs
 python pipelines/main.py ml_pipeline
 python pipelines/main.py yaml_serialization
+python pipelines/main.py streaming_sentiment
 ```
 
 Each example is designed to be minimal yet expressive, showing the elegance and power of xorq's approach to data processing.
+
+### Streaming Sentiment Analysis Pipeline
+
+The streaming sentiment analysis pipeline demonstrates how to:
+
+- Ingest real-time data from Kafka
+- Process streaming text using xorq and DuckDB
+- Apply sentiment analysis with Hugging Face Transformers
+- Aggregate and analyze sentiment trends
+- Visualize results in real-time with Streamlit
+
+To run this pipeline:
+
+1. Start Kafka: `cd pipelines/streaming_sentiment && docker-compose up -d`
+2. Run data simulator: `python pipelines/streaming_sentiment/data_simulator.py`
+3. Run the pipeline: `python pipelines/streaming_sentiment/streaming_sentiment_pipeline.py`
+4. View the dashboard: `python pipelines/streaming_sentiment/streaming_sentiment_pipeline.py --dashboard`
+
+For more details, see the [streaming_sentiment README](pipelines/streaming_sentiment/README.md).
 
 ## About xorq
 

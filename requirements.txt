@@ -7,4 +7,9 @@ pyarrow
 xorq
 rich
 tqdm
-xorq
+kafka-python
+transformers
+torch
+streamlit
+plotly
+regex
