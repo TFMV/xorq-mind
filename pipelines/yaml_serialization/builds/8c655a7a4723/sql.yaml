@@ -1,0 +1,8 @@
+queries:
+  main:
+    engine: let
+    profile_name: feda6956a9ca4d2bda0fbc8e775042c3_4
+    relations:
+    - sales_data-fddeedf501a1d00a36a75f81059d066b
+    options: {}
+    sql_file: 1bca06a76c93.sql
