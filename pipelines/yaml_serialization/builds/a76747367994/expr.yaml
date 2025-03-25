@@ -1,0 +1,220 @@
+definitions:
+  schemas:
+    schema_0:
+      region:
+        name: String
+        nullable: true
+      date:
+        name: Timestamp
+        nullable: true
+      daily_sales:
+        name: Float64
+        nullable: true
+      avg_order_value:
+        name: Float64
+        nullable: true
+      num_transactions:
+        name: Int64
+        nullable: true
+    schema_1:
+      date:
+        name: Timestamp
+        nullable: true
+      product_id:
+        name: Int64
+        nullable: true
+      customer_id:
+        name: Int64
+        nullable: true
+      quantity:
+        name: Int64
+        nullable: true
+      unit_price:
+        name: Float64
+        nullable: true
+      region:
+        name: String
+        nullable: true
+      total_price:
+        name: Float64
+        nullable: true
+  nodes:
+    d3a8e157dafa94bf26885e0851454770:
+      op: Field
+      name: unit_price
+      relation:
+        op: DatabaseTable
+        table: sales_data
+        schema_ref: schema_1
+        profile: 2eca7579af9a9d8e315faf6af1ddb59a_6
+        namespace:
+          catalog: null
+          database: null
+      type:
+        name: Float64
+        nullable: true
+    b051c42c232efc5fd4199d9e562400dd:
+      op: Filter
+      parent:
+        op: DatabaseTable
+        table: sales_data
+        schema_ref: schema_1
+        profile: 2eca7579af9a9d8e315faf6af1ddb59a_6
+        namespace:
+          catalog: null
+          database: null
+      predicates:
+      - op: Greater
+        args:
+        - node_ref: d3a8e157dafa94bf26885e0851454770
+        - op: Literal
+          value: 100
+          type:
+            name: Int8
+            nullable: true
+        type:
+          name: Boolean
+          nullable: true
+    86b39d6ded4e80409f9d36a68320a5dd:
+      op: Field
+      name: region
+      relation:
+        node_ref: b051c42c232efc5fd4199d9e562400dd
+      type:
+        name: String
+        nullable: true
+    7fcbe139db1b5f26e6ee04e5199b4ec8:
+      op: Field
+      name: date
+      relation:
+        node_ref: b051c42c232efc5fd4199d9e562400dd
+      type:
+        name: Timestamp
+        nullable: true
+    235661a396ef4d7660f39c880978470f:
+      op: Field
+      name: total_price
+      relation:
+        node_ref: b051c42c232efc5fd4199d9e562400dd
+      type:
+        name: Float64
+        nullable: true
+    d7767eada7ef5f0d308be176348505c8:
+      op: Field
+      name: region
+      relation:
+        op: Aggregate
+        parent:
+          node_ref: b051c42c232efc5fd4199d9e562400dd
+        by:
+        - node_ref: 86b39d6ded4e80409f9d36a68320a5dd
+        - node_ref: 7fcbe139db1b5f26e6ee04e5199b4ec8
+        metrics:
+          daily_sales:
+            op: Sum
+            type:
+              name: Float64
+              nullable: true
+            args:
+            - node_ref: 235661a396ef4d7660f39c880978470f
+          avg_order_value:
+            op: Mean
+            type:
+              name: Float64
+              nullable: true
+            args:
+            - node_ref: 235661a396ef4d7660f39c880978470f
+          num_transactions:
+            op: Count
+            type:
+              name: Int64
+              nullable: true
+            args:
+            - node_ref: 235661a396ef4d7660f39c880978470f
+      type:
+        name: String
+        nullable: true
+    1c503fb07df4dcbc306f95661aca0145:
+      op: Field
+      name: date
+      relation:
+        op: Aggregate
+        parent:
+          node_ref: b051c42c232efc5fd4199d9e562400dd
+        by:
+        - node_ref: 86b39d6ded4e80409f9d36a68320a5dd
+        - node_ref: 7fcbe139db1b5f26e6ee04e5199b4ec8
+        metrics:
+          daily_sales:
+            op: Sum
+            type:
+              name: Float64
+              nullable: true
+            args:
+            - node_ref: 235661a396ef4d7660f39c880978470f
+          avg_order_value:
+            op: Mean
+            type:
+              name: Float64
+              nullable: true
+            args:
+            - node_ref: 235661a396ef4d7660f39c880978470f
+          num_transactions:
+            op: Count
+            type:
+              name: Int64
+              nullable: true
+            args:
+            - node_ref: 235661a396ef4d7660f39c880978470f
+      type:
+        name: Timestamp
+        nullable: true
+expression:
+  op: Sort
+  parent:
+    op: Aggregate
+    parent:
+      node_ref: b051c42c232efc5fd4199d9e562400dd
+    by:
+    - node_ref: 86b39d6ded4e80409f9d36a68320a5dd
+    - node_ref: 7fcbe139db1b5f26e6ee04e5199b4ec8
+    metrics:
+      daily_sales:
+        op: Sum
+        type:
+          name: Float64
+          nullable: true
+        args:
+        - node_ref: 235661a396ef4d7660f39c880978470f
+      avg_order_value:
+        op: Mean
+        type:
+          name: Float64
+          nullable: true
+        args:
+        - node_ref: 235661a396ef4d7660f39c880978470f
+      num_transactions:
+        op: Count
+        type:
+          name: Int64
+          nullable: true
+        args:
+        - node_ref: 235661a396ef4d7660f39c880978470f
+  keys:
+  - op: SortKey
+    arg:
+      node_ref: d7767eada7ef5f0d308be176348505c8
+    ascending: true
+    nulls_first: false
+    type:
+      name: String
+      nullable: true
+  - op: SortKey
+    arg:
+      node_ref: 1c503fb07df4dcbc306f95661aca0145
+    ascending: true
+    nulls_first: false
+    type:
+      name: Timestamp
+      nullable: true
+  schema_ref: schema_0
